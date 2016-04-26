@@ -15,9 +15,9 @@ table = ddb.Table(table_name)
 def handler(event, context):
     log.debug("Received event {}".format(json.dumps(event)))
 
-    scale_id = event['scale_id']
+    scale_id  = event['scale_id']
     timestamp = event['timestamp']
-    weight = event['weight']
+    weight    = event['weight']
 
     item = {
         'scale_id': scale_id,

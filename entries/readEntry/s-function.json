@@ -1,0 +1,56 @@
+{
+  "name": "readEntry",
+  "runtime": "python2.7",
+  "description": "Serverless Lambda function for project: CoffeeScale",
+  "customName": false,
+  "customRole": false,
+  "handler": "handler.handler",
+  "timeout": 6,
+  "memorySize": 1024,
+  "authorizer": {},
+  "custom": {
+    "excludePatterns": []
+  },
+  "endpoints": [
+    {
+      "path": "entries",
+      "method": "GET",
+      "type": "AWS",
+      "authorizationType": "none",
+      "authorizerFunction": false,
+      "apiKeyRequired": true,
+      "requestParameters": {
+        "integration.request.querystring.scale_id": "method.request.querystring.scale_id",
+        "integration.request.querystring.start_time": "method.request.querystring.start_time",
+        "integration.request.querystring.end_time": "method.request.querystring.end_time"
+      },
+      "requestTemplates": {
+        "application/json": "{\"scale_id\": \"$input.params('scale_id')\",\"start_time\": \"$input.params('start_time')\",\"end_time\": \"$input.params('end_time')\"}"
+      },
+      "responses": {
+        "400": {
+          "statusCode": "400"
+        },
+        "default": {
+          "statusCode": "200",
+          "responseParameters": {},
+          "responseModels": {},
+          "responseTemplates": {
+            "application/json": ""
+          }
+        }
+      }
+    }
+  ],
+  "events": [],
+  "environment": {
+    "SERVERLESS_PROJECT": "${project}",
+    "SERVERLESS_STAGE": "${stage}",
+    "SERVERLESS_REGION": "${region}",
+    "DYNAMODB_TABLE_NAME": "${dynamodbTableName}"
+  },
+  "vpc": {
+    "securityGroupIds": [],
+    "subnetIds": []
+  }
+}
